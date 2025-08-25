@@ -1,0 +1,31 @@
+import os
+
+# ===== 1. Fungsi untuk mengecek apakah angka prima =====
+def is_prime(num):
+    """Mengembalikan True jika num adalah bilangan prima."""
+    if num < 2:  # Bilangan < 2 bukan prima
+        return False
+    # Cek pembagi dari 2 sampai akar kuadrat num
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+# ===== 2. Cari semua bilangan prima 1 - 250 =====
+primes = [n for n in range(1, 251) if is_prime(n)]
+
+# ===== 3. Tampilkan di layar =====
+print("Prime numbers between 1 and 250:")
+print(", ".join(map(str, primes)))  # Gabung jadi string dipisahkan koma
+
+# ===== 4. Siapkan folder output =====
+output_dir = "result_find_prime"
+os.makedirs(output_dir, exist_ok=True)  # Buat folder jika belum ada
+
+# ===== 5. Simpan hasil ke file (satu angka per baris) =====
+output_path = os.path.join(output_dir, "results.txt")
+with open(output_path, "w") as file:
+    file.write("\n".join(map(str, primes)))  # Satu angka per baris
+
+# ===== 6. Konfirmasi =====
+print(f"\nPrime numbers saved to {output_path}")
